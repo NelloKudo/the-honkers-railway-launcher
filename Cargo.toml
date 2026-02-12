@@ -8,6 +8,7 @@ repository = "https://github.com/an-anime-team/the-honkers-railway-launcher"
 license = "GPL-3.0"
 edition = "2021"
 build = "build.rs"
+publish = false
 
 [profile.release]
 strip = true
