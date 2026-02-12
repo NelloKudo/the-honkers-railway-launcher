@@ -32,9 +32,13 @@ pub fn repair_game(
             config.launcher.edition.into()
         ).expect("failed to get game branches info");
 
-        let game_branch_info = game_branches_info.get_game_latest_by_id(
-            config.launcher.edition.api_game_id()
-        ).expect("failed to get latest game version info");
+        let latest_version = game_branches_info
+            .latest_version_by_id(config.launcher.edition.api_game_id())
+            .expect("failed to find the latest game version");
+
+        let game_branch_info = game_branches_info
+            .get_game_by_id(config.launcher.edition.api_game_id(), latest_version)
+            .expect("failed to get game version information");
 
         let downloads = sophon::installer::get_game_download_sophon_info(
             &client,

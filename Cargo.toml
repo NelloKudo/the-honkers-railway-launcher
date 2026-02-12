@@ -8,6 +8,7 @@ repository = "https://github.com/an-anime-team/the-honkers-railway-launcher"
 license = "GPL-3.0"
 edition = "2021"
 build = "build.rs"
+publish = false
 
 [profile.release]
 strip = true
@@ -19,7 +20,7 @@ glib-build-tools = "0.20"
 
 [dependencies.anime-launcher-sdk]
 git = "https://github.com/an-anime-team/anime-launcher-sdk"
-tag = "1.34.1"
+tag = "1.34.2"
 features = ["all", "star-rail", "star-rail-patch"]
 
 # path = "../anime-launcher-sdk" # ! for dev purposes only
