@@ -329,15 +329,23 @@ impl SimpleComponent for App {
                                                 let config = Config::get().unwrap();
                                                 let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
 
-                                                let mut downloaded = temp.join(game.file_name().unwrap()).metadata()
-                                                    .map(|metadata| Some(metadata.len()) >= game.downloaded_size())
-                                                    .unwrap_or(false);
+                                                // this is only going to check in `updating`
+                                                let mut downloaded = temp
+                                                    .join(format!("updating-{}", game.matching_field()
+                                                            .expect("VersionDiff is Predownload, must return Some")))
+                                                    .join(".predownloadcomplete")
+                                                    .metadata()
+                                                    .is_ok();
 
                                                 if downloaded {
                                                     for voice in voices {
-                                                        downloaded = temp.join(voice.file_name().unwrap()).metadata()
-                                                            .map(|metadata| Some(metadata.len()) >= voice.downloaded_size())
-                                                            .unwrap_or(false);
+                                                        downloaded = temp
+                                                            .join(format!("updating-{}",
+                                                                    voice.matching_field()
+                                                                    .expect("VersionDiff is Predownload, must return Some")))
+                                                            .join(".predownloadcomplete")
+                                                            .metadata()
+                                                            .is_ok();
 
                                                         if !downloaded {
                                                             break;
@@ -357,15 +365,23 @@ impl SimpleComponent for App {
                                                 let config = Config::get().unwrap();
                                                 let temp = config.launcher.temp.unwrap_or_else(std::env::temp_dir);
 
-                                                let mut downloaded = temp.join(game.file_name().unwrap()).metadata()
-                                                    .map(|metadata| Some(metadata.len()) >= game.downloaded_size())
-                                                    .unwrap_or(false);
+                                                // this is only going to check in `updating`
+                                                let mut downloaded = temp
+                                                    .join(format!("updating-{}", game.matching_field()
+                                                            .expect("VersionDiff is Predownload, must return Some")))
+                                                    .join(".predownloadcomplete")
+                                                    .metadata()
+                                                    .is_ok();
 
                                                 if downloaded {
                                                     for voice in voices {
-                                                        downloaded = temp.join(voice.file_name().unwrap()).metadata()
-                                                            .map(|metadata| Some(metadata.len()) >= voice.downloaded_size())
-                                                            .unwrap_or(false);
+                                                        downloaded = temp
+                                                            .join(format!("updating-{}",
+                                                                    voice.matching_field()
+                                                                    .expect("VersionDiff is Predownload, must return Some")))
+                                                            .join(".predownloadcomplete")
+                                                            .metadata()
+                                                            .is_ok();
 
                                                         if !downloaded {
                                                             break;
@@ -1202,6 +1218,8 @@ impl SimpleComponent for App {
 
                     std::thread::spawn(move || {
                         for mut diff in diffs {
+                            diff = diff.with_temp_folder(tmp.clone());
+
                             let result = diff.download_to(&tmp, clone!(
                                 #[strong]
                                 progress_bar_input,
