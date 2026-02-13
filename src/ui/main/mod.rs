@@ -9,6 +9,7 @@ mod repair_game;
 mod update_patch;
 mod download_wine;
 mod install_dxvk;
+mod install_mfc140;
 mod create_prefix;
 mod download_diff;
 mod disable_telemetry;
@@ -430,7 +431,8 @@ impl SimpleComponent for App {
                                                 Some(LauncherState::TelemetryNotDisabled) => "security-high-symbolic",
 
                                                 Some(LauncherState::WineNotInstalled) |
-                                                Some(LauncherState::PrefixNotExists) | 
+                                                Some(LauncherState::PrefixNotExists) |
+                                                Some(LauncherState::Mfc140NotInstalled) |
                                                 Some(LauncherState::DxvkNotInstalled) => "document-save-symbolic",
 
                                                 Some(LauncherState::GameUpdateAvailable(_)) |
@@ -472,6 +474,7 @@ impl SimpleComponent for App {
 
                                                 Some(LauncherState::WineNotInstalled) => tr!("download-wine"),
                                                 Some(LauncherState::PrefixNotExists)  => tr!("create-prefix"),
+                                                Some(LauncherState::Mfc140NotInstalled) => tr!("install-mfc140"),
                                                 Some(LauncherState::DxvkNotInstalled) => tr!("install-dxvk"),
 
                                                 Some(LauncherState::GameUpdateAvailable(diff)) |
@@ -1266,6 +1269,7 @@ impl SimpleComponent for App {
 
                     LauncherState::WineNotInstalled => download_wine::download_wine(sender, self.progress_bar.sender().to_owned()),
                     LauncherState::PrefixNotExists => create_prefix::create_prefix(sender),
+                    LauncherState::Mfc140NotInstalled => install_mfc140::install_mfc140(sender),
                     
                     LauncherState::DxvkNotInstalled => {
                         install_dxvk::install_dxvk(sender, self.progress_bar.sender().to_owned())
