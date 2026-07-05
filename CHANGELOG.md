@@ -520,7 +520,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.1...next
+[unreleased]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.2...next
+[1.15.2]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.1...1.15.2
 [1.15.1]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.15.0...1.15.1
 [1.15.0]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.5...1.15.0
 [1.14.5]: https://github.com/an-anime-team/the-honkers-railway-launcher/compare/1.14.4...1.14.5
